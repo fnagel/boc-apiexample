@@ -25,6 +25,8 @@ namespace TYPO3\BocApiexample\Controller;
  ***************************************************************/
 
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+use TYPO3\CMS\Core\Utility\ArrayUtility;
 
 /**
  * Plugin 'BeautyOfCode API Example' for the 'boc_apiexample' extension.
@@ -35,29 +37,49 @@ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
 
 	/**
-	 * renderAction
+	 *
+	 * @var array
+	 */
+	protected $beautyofcodeSettings = array();
+
+	/**
+	 * initializeObject
 	 *
 	 * @return void
 	 */
-	function renderAction() {
-		$flexform = $this->objectManager->get(
-			'TYPO3\\Beautyofcode\\Domain\\Model\\Flexform'
+	public function initializeObject() {
+		$configuration = $this
+			->configurationManager
+			->getConfiguration(
+				ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT
+			);
+
+		$this->beautyofcodeSettings = ArrayUtility::getValueByPath(
+			$configuration,
+			'plugin./tx_beautyofcode./settings.'
+		);
+	}
+
+	/**
+	 * resolveView
+	 *
+	 * @return \TYPO3\CMS\Extbase\Mvc\View\ViewInterface
+	 */
+	protected function resolveView() {
+		$view = $this->objectManager->get(
+			'TYPO3\\CMS\\Fluid\\View\\StandaloneView'
 		);
 
-		$flexform->setCCode = 'console.log("Hello World!");';
-		$flexform->setCLang = 'javascript';
-		$flexform->setCLabel = 'Generated via BoC API';
-
-		$this->view->setLayoutRootPath(
+		$view->setLayoutRootPath(
 			ExtensionManagementUtility::extPath(
 				'beautyofcode',
 				'Resources/Private/Layouts/'
 			)
 		);
-		$this->view->setPartialRootPath(
+		$view->setPartialRootPath(
 			ExtensionManagementUtility::extPath(
 				'beautyofcode',
-				'Resoources/Private/Partials/'
+				'Resources/Private/Partials/'
 			)
 		);
 
@@ -65,7 +87,26 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
 			'beautyofcode',
 			'Resources/Private/Templates/Content/Render.html'
 		);
-		$this->view->setTemplatePathAndFileName($templatePath);
+		$view->setTemplatePathAndFileName($templatePath);
+
+		$view->assign('settings', $this->beautyofcodeSettings);
+
+		return $view;
+	}
+
+	/**
+	 * renderAction
+	 *
+	 * @return void
+	 */
+	public function renderAction() {
+		$flexform = $this->objectManager->get(
+			'TYPO3\\Beautyofcode\\Domain\\Model\\Flexform'
+		);
+
+		$flexform->setCCode('console.log("Hello World!");');
+		$flexform->setCLang('javascript');
+		$flexform->setCLabel('Generated via BoC API');
 
 		$this->view->assign('flexform', $flexform);
 	}
