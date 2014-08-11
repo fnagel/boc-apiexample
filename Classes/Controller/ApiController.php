@@ -48,6 +48,19 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
 		$flexform->setCLang = 'javascript';
 		$flexform->setCLabel = 'Generated via BoC API';
 
+		$this->view->setLayoutRootPath(
+			ExtensionManagementUtility::extPath(
+				'beautyofcode',
+				'Resources/Private/Layouts/'
+			)
+		);
+		$this->view->setPartialRootPath(
+			ExtensionManagementUtility::extPath(
+				'beautyofcode',
+				'Resoources/Private/Partials/'
+			),
+		);
+
 		$templatePath = ExtensionManagementUtility::extPath(
 			'beautyofcode',
 			'Resources/Private/Templates/Content/Render.html'
