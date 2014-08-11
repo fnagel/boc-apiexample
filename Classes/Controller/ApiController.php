@@ -35,24 +35,6 @@ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
 
 	/**
-	 * \TYPO3\Beautyofcode\Domain\Repository\ContentElementRepository
-	 * @var unknown
-	 */
-	protected $contentElementRepository;
-
-	/**
-	 * injectContentElementRepository
-	 *
-	 * @param \TYPO3\Beautyofcode\Domain\Repository\ContentElementRepository $contentElementRepository
-	 * @return void
-	 */
-	public function injectContentElementRepository(
-		\TYPO3\Beautyofcode\Domain\Repository\ContentElementRepository $contentElementRepository
-	) {
-		$this->contentElementRepository = $contentElementRepository;
-	}
-
-	/**
 	 * initializeRenderAction
 	 *
 	 * @return void
