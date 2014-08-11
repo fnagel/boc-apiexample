@@ -58,7 +58,7 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
 			ExtensionManagementUtility::extPath(
 				'beautyofcode',
 				'Resoources/Private/Partials/'
-			),
+			)
 		);
 
 		$templatePath = ExtensionManagementUtility::extPath(
