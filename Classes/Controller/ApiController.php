@@ -35,19 +35,6 @@ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
 
 	/**
-	 * initializeRenderAction
-	 *
-	 * @return void
-	 */
-	public function initializeRenderAction() {
-		$templatePath = ExtensionManagementUtility::extPath(
-			'beautyofcode',
-			'Resources/Private/Templates/Content/Render.html'
-		);
-		$this->view->setTemplatePathAndFileName($templatePath);
-	}
-
-	/**
 	 * renderAction
 	 *
 	 * @return void
@@ -60,6 +47,12 @@ class ApiController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
 		$flexform->setCCode = 'console.log("Hello World!");';
 		$flexform->setCLang = 'javascript';
 		$flexform->setCLabel = 'Generated via BoC API';
+
+		$templatePath = ExtensionManagementUtility::extPath(
+			'beautyofcode',
+			'Resources/Private/Templates/Content/Render.html'
+		);
+		$this->view->setTemplatePathAndFileName($templatePath);
 
 		$this->view->assign('flexform', $flexform);
 	}
