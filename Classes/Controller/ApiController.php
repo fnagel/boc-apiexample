@@ -4,7 +4,7 @@ namespace TYPO3\BocApiexample\Controller;
 /***************************************************************
  * Copyright notice
  *
- * (c) 2011 Felix Nagel <info@felixnagel.com>
+ * (c) 2014 Thomas Juhnke <typo3@van-tomas.de>
  * All rights reserved
  *
  * This script is part of the TYPO3 project. The TYPO3 project is
